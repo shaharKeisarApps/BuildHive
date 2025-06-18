@@ -131,25 +131,25 @@ page EmailVerificationPage {
 route BuildHiveLandingRoute { path: "/buildhive", to: BuildHiveLandingPage }
 page BuildHiveLandingPage {
   component: import BuildHiveLandingPage from "@src/client/buildhive/BuildHiveLandingPage.js",
-  auth: true
+  authRequired: true
 }
 
 route TeamBuildHostsRoute { path: "/buildhive/team/:teamId/hosts", to: TeamBuildHostsPage }
 page TeamBuildHostsPage {
   component: import TeamBuildHostsPage from "@src/client/buildhive/TeamBuildHostsPage.js",
-  auth: true
+  authRequired: true
 }
 
 route TeamJobsRoute { path: "/buildhive/team/:teamId/jobs", to: TeamJobsPage }
 page TeamJobsPage {
   component: import TeamJobsPage from "@src/client/buildhive/TeamJobsPage.js",
-  auth: true
+  authRequired: true
 }
 
 route JobDetailsRoute { path: "/buildhive/job/:jobId", to: JobDetailsPage }
 page JobDetailsPage {
   component: import JobDetailsPage from "@src/client/buildhive/JobDetailsPage.js",
-  auth: true
+  authRequired: true
 }
 //#endregion
 
