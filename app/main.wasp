@@ -2,7 +2,6 @@ app OpenSaaS {
   wasp: {
     version: "^0.16.0"
   },
-  jobExecutor: PgBoss, // Set PgBoss as the default job executor
 
   title: "My Open SaaS App",
 
