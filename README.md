@@ -1,5 +1,3 @@
-
-```markdown
 # 🐝 BuildHive — Distributed CI Powered by Your Team
 
 **BuildHive** is a developer-first SaaS platform that intelligently offloads heavy CI workloads — like Android or iOS builds — from cloud runners to your team’s own high-performance developer machines (e.g., MacBook Pros), when they’re idle.
