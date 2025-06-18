@@ -168,14 +168,12 @@ job AssignerJob {
   perform: {
     fn: import { assignJobsToHosts } from "@server/buildhive_jobs.js"
   },
-  entities: [Job, BuildHost] // Job, BuildHost for DB access. BuildJobHandler submitter is available via context.jobs regardless.
-}
-
-cron AssignQueuedJobs {
-  schedule: "* * * * *", // Every minute
-  job: AssignerJob
-  // No specific payload needed for this assigner job via cron yet.
-  // Wasp automatically passes an empty object {} as payload if not specified.
+  entities: [Job, BuildHost], // Job, BuildHost for DB access. BuildJobHandler submitter is available via context.jobs regardless.
+  schedule: {
+    cron: "* * * * *", // Every minute
+    // No specific args needed for assignJobsToHosts when run by cron,
+    // it will fetch pending jobs itself. Wasp passes {} if args omitted.
+  }
 }
 //#endregion
 
