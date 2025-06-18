@@ -168,7 +168,7 @@ job AssignerJob {
   perform: {
     fn: import { assignJobsToHosts } from "@server/buildhive_jobs.js"
   },
-  entities: [Job, BuildHost, BuildJobHandler] // Job, BuildHost for DB; BuildJobHandler for submitting new jobs
+  entities: [Job, BuildHost] // Job, BuildHost for DB access. BuildJobHandler submitter is available via context.jobs regardless.
 }
 
 cron AssignQueuedJobs {
