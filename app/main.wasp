@@ -2,6 +2,7 @@ app OpenSaaS {
   wasp: {
     version: "^0.16.0"
   },
+  jobExecutor: PgBoss, // Set PgBoss as the default job executor
 
   title: "My Open SaaS App",
 
@@ -124,6 +125,96 @@ page PasswordResetPage {
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
 page EmailVerificationPage {
   component: import { EmailVerificationPage } from "@src/auth/email-and-pass/EmailVerificationPage",
+}
+//#endregion
+
+//#region BuildHive Pages
+route BuildHiveLandingRoute { path: "/buildhive", to: BuildHiveLandingPage }
+page BuildHiveLandingPage {
+  component: import BuildHiveLandingPage from "@src/client/buildhive/BuildHiveLandingPage.js",
+  auth: true
+}
+
+route TeamBuildHostsRoute { path: "/buildhive/team/:teamId/hosts", to: TeamBuildHostsPage }
+page TeamBuildHostsPage {
+  component: import TeamBuildHostsPage from "@src/client/buildhive/TeamBuildHostsPage.js",
+  auth: true
+}
+
+route TeamJobsRoute { path: "/buildhive/team/:teamId/jobs", to: TeamJobsPage }
+page TeamJobsPage {
+  component: import TeamJobsPage from "@src/client/buildhive/TeamJobsPage.js",
+  auth: true
+}
+
+route JobDetailsRoute { path: "/buildhive/job/:jobId", to: JobDetailsPage }
+page JobDetailsPage {
+  component: import JobDetailsPage from "@src/client/buildhive/JobDetailsPage.js",
+  auth: true
+}
+//#endregion
+
+//#region BuildHive Jobs
+job BuildJobHandler {
+  executor: PgBoss,
+  perform: {
+    fn: import { handleBuildJob } from "@server/buildhive_jobs.js"
+  },
+  entities: [Job, BuildHost] // Entities needed by handleBuildJob
+}
+
+// Define a specific job for the cron job to call
+job AssignerJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { assignJobsToHosts } from "@server/buildhive_jobs.js"
+  },
+  entities: [Job, BuildHost, BuildJobHandler] // Job, BuildHost for DB; BuildJobHandler for submitting new jobs
+}
+
+cron AssignQueuedJobs {
+  schedule: "* * * * *", // Every minute
+  job: AssignerJob
+  // No specific payload needed for this assigner job via cron yet.
+  // Wasp automatically passes an empty object {} as payload if not specified.
+}
+//#endregion
+
+//#region BuildHive Operations
+action registerBuildHost {
+  fn: import { registerBuildHost } from "@server/buildHosts.js",
+  entities: [User, Team, BuildHost],
+  auth: true
+}
+
+query getTeamBuildHosts {
+  fn: import { getTeamBuildHosts } from "@server/buildHosts.js",
+  entities: [User, Team, BuildHost],
+  auth: true
+}
+
+action updateBuildHostStatus {
+  fn: import { updateBuildHostStatus } from "@server/buildHosts.js",
+  entities: [User, BuildHost],
+  auth: true
+}
+
+action submitJob {
+  fn: import { submitJob } from "@server/jobs.js",
+  entities: [User, Team, Job, BuildJobHandler], // User, Team, Job for Prisma; BuildJobHandler for Wasp job
+  auth: true
+}
+
+query getTeamJobs {
+  fn: import { getTeamJobs } from "@server/jobs.js",
+  entities: [User, Team, Job],
+  auth: true
+}
+
+query getJobDetails {
+  fn: import { getJobDetails } from "@server/jobs.js",
+  entities: [User, Job, Team], // Job and its related Team for auth
+  auth: true
 }
 //#endregion
 

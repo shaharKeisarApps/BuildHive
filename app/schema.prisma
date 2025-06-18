@@ -26,6 +26,36 @@ model User {
   contactFormMessages       ContactFormMessage[]
   tasks                     Task[]
   files                     File[]
+  teams                     Team[] // Added for many-to-many relationship with Team
+}
+
+model Team {
+  id          String      @id @default(cuid())
+  name        String
+  users       User[] // Relation to User model (many-to-many)
+  buildHosts  BuildHost[] // Relation to BuildHost model (one-to-many)
+  jobs        Job[] // Relation to Job model (one-to-many)
+}
+
+model BuildHost {
+  id          String  @id @default(cuid())
+  hostname    String  @unique
+  status      String // e.g., "idle", "busy", "offline"
+  teamId      String
+  team        Team    @relation(fields: [teamId], references: [id])
+  jobs        Job[] // Relation to Job model (one-to-many)
+}
+
+model Job {
+  id              String      @id @default(cuid())
+  payload         String // representing the build script or commands
+  status          String // e.g., "pending", "running", "completed", "failed"
+  teamId          String
+  team            Team        @relation(fields: [teamId], references: [id])
+  assignedHostId  String?
+  assignedHost    BuildHost?  @relation(fields: [assignedHostId], references: [id])
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model GptResponse {
