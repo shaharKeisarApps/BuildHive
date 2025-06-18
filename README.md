@@ -1,65 +1,36 @@
-# BuildHive
+# 🐝 BuildHive — Distributed CI Powered by Your Team
 
-BuildHive is a decentralized build server that empowers developers to build and deploy their software projects with enhanced security, transparency, and efficiency. It leverages blockchain technology and distributed computing to create a resilient and trustworthy build infrastructure.
+**BuildHive** is a developer-first SaaS platform that intelligently offloads heavy CI workloads — like Android or iOS builds — from cloud runners to your team’s own high-performance developer machines (e.g., MacBook Pros), when they’re idle.
 
-## Key Features (MVP)
+BuildHive helps you **reduce CI costs**, **speed up builds**, and **utilize team resources more efficiently** — all with security and control.
 
-*   **Decentralized Builds:** Distribute build tasks across a network of worker nodes, eliminating single points of failure and enhancing scalability.
-*   **Secure Build Execution:** Ensure build integrity and prevent tampering by leveraging cryptographic signing and verification of build artifacts.
-*   **Transparent Build Logs:** Store build logs and metadata on a distributed ledger, providing an immutable and auditable record of all build activities.
-*   **Token-Based Incentives:** Reward worker nodes for contributing their computing resources to the network, fostering a vibrant and self-sustaining ecosystem.
-*   **Simplified Project Onboarding:** Provide an intuitive command-line interface (CLI) and web portal for easy project setup and management.
+---
 
-## Tech Stack
+## 🚀 Key Features
 
-*   **Blockchain:** Ethereum (for smart contracts and tokenization)
-*   **Distributed Storage:** IPFS (for storing build artifacts and logs)
-*   **Backend:** Node.js, Express.js
-*   **Frontend:** React, Redux
-*   **Build Tools:** Docker, Jenkins (or similar)
+- ⚡ Offload CI jobs (e.g., Android builds) to local team machines
+- 🔁 Auto-detection of high CI load and seamless fallback
+- 🧠 Smart coordination and agent selection
+- 🔐 Secure, sandboxed local task execution (Docker-based)
+- 🛠️ Lightweight agent runs on developer machines
+- 🤝 GitHub Actions integration (MVP target)
+- 💻 Kotlin Multiplatform architecture for shared logic
 
-## Project Structure
+---
 
-```
-buildhive/
-├── contracts/         # Smart contracts for Ethereum blockchain
-├── backend/           # Node.js backend application
-├── frontend/          # React frontend application
-├── worker/            # Worker node implementation
-├── cli/               # Command-line interface
-├── docs/              # Project documentation
-└── tests/             # Unit and integration tests
-```
+## 🧱 Tech Stack
 
-## MVP Checklist
+| Layer            | Technology                                       |
+|------------------|--------------------------------------------------|
+| SaaS Platform    | [OpenSaaS.sh](https://opensaas.sh/)              |
+| Coordinator API  | Kotlin (Ktor), Redis/RabbitMQ, PostgreSQL        |
+| Agent CLI        | Kotlin Native (Mac/Linux)                        |
+| CI Integration   | GitHub Actions plugin, CLI wrapper               |
+| Job Isolation    | Docker (sandboxed build environment)             |
+| Web UI (future)  | Next.js (from OpenSaaS template)                 |
+| Auth             | Supabase/Auth.js or Auth0                        |
 
-*   [ ] Smart contract development for tokenomics and build verification
-*   [ ] Backend API for project management and build orchestration
-*   [ ] Worker node implementation for executing build tasks
-*   [ ] Basic CLI for project interaction
-*   [ ] Integration with IPFS for artifact storage
-*   [ ] Initial documentation and setup guides
+---
 
-## Future Ideas (Post-MVP)
+## 📂 Project Structure
 
-*   Support for multiple programming languages and build systems
-*   Advanced security features (e.g., confidential builds, vulnerability scanning)
-*   Integration with popular CI/CD platforms
-*   Decentralized governance model for platform evolution
-*   Marketplace for build services and plugins
-
-## Getting Started
-
-1.  Clone the repository: `git clone https://github.com/your-username/buildhive.git`
-2.  Install dependencies: `npm install` (for backend and frontend)
-3.  Set up an Ethereum development environment (e.g., Ganache, Hardhat)
-4.  Deploy smart contracts to the local network
-5.  Configure backend and worker nodes
-6.  Start the application: `npm start`
-
-## Related Repos
-
-*   [BuildHive Contracts](https://github.com/your-username/buildhive-contracts)
-*   [BuildHive Worker](https://github.com/your-username/buildhive-worker)
-*   [BuildHive CLI](https://github.com/your-username/buildhive-cli)
-```
