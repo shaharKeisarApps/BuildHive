@@ -25,6 +25,9 @@ jobs:
         run: npm run build
         working-directory: ./blog # Assuming your Astro project is in the 'blog' directory
 
+      - name: Add .nojekyll file
+        run: touch ./blog/dist/.nojekyll # Create .nojekyll file in the output directory
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
