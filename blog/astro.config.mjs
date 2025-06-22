@@ -6,7 +6,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://your-site.com',
+  site: 'https://shaharKeisarApps.github.io/BuildHive/',
   trailingSlash: 'always',
   integrations: [
     starlight({
