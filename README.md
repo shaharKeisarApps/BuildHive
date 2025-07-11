@@ -33,6 +33,18 @@ BuildHive helps you **reduce CI costs**, **speed up builds**, and **utilize team
 
 ---
 
+## 🎯 Use Cases
+
+BuildHive is particularly beneficial for:
+
+*   **Teams with Long Mobile Build Times:** Drastically cut down build times for Android (and future iOS) projects by utilizing powerful developer MacBooks or Linux machines.
+*   **Cost-Conscious Organizations:** Reduce reliance on expensive cloud-hosted CI runners, leading to significant cost savings.
+*   **Projects with Heavy Dockerized Builds:** If your CI jobs are already Dockerized, BuildHive can seamlessly offload these to local agents.
+*   **Developers Experiencing CI Bottlenecks:** When cloud runners are queued up or slow, BuildHive offers an alternative path to get builds done faster on available team hardware.
+*   **Hybrid CI/CD Setups:** Augment your existing cloud CI with the ability to tap into local machine power for specific jobs or during peak load.
+
+---
+
 ## ✨ Leveraging OpenSaaS & Wasp
 
 BuildHive utilizes the [OpenSaaS.sh](https://opensaas.sh/) template, which is built on the [Wasp](https://wasp.sh/) full-stack framework. This provides several advantages:
@@ -150,13 +162,74 @@ The application should now be running, typically at `http://localhost:3000`.
 
 ---
 
-## 📈 Future Features
+## 🗺️ Roadmap
 
-* Historical load analysis and build prediction
-* Multi-agent fallback and load splitting
-* Multi-CI support (GitLab, CircleCI, Bitrise)
-* Web dashboard with admin controls
-* Team reward tracking system (credits per agent usage)
+While the MVP focuses on core functionality with GitHub Actions, here's what we're looking at next:
+
+*   **Q3 2024 (Post-MVP):**
+    *   Enhanced Agent Capabilities: Support for specific tags, resource limits.
+    *   Improved Web Dashboard: More detailed job views, agent management controls.
+    *   Basic Caching Strategies: Initial support for workspace/dependency caching on agents.
+*   **Q4 2024:**
+    *   iOS Build Support: Agent capabilities for macOS and Xcode builds.
+    *   Advanced Fallback Logic: More sophisticated rules for when to use local vs. cloud runners.
+    *   Initial Team Management Features: Basic team structures and agent sharing within the Wasp dashboard.
+*   **Beyond:**
+    *   Multi-CI Support: GitLab, CircleCI, Bitrise integrations.
+    *   Historical Load Analysis & Build Prediction: Optimize agent utilization and predict build times.
+    *   Kubernetes-based Agent Runners: Option to run agents in a K8s cluster.
+    *   Team Reward/Credit System: Incentivize sharing of machine resources.
+    *   Advanced Security Models: Fine-grained permissions and audit trails.
+
+*(This roadmap is indicative and subject to change based on development progress and community feedback.)*
+
+---
+
+## 🔐 Security & Privacy
+
+BuildHive is designed with security in mind, especially when running CI jobs on developer machines:
+
+*   **Job Isolation:** All jobs are executed within Docker containers, providing a strong layer of isolation from the host system and other jobs.
+*   **Secure Communication:** Communication between agents, the coordinator, and CI plugins will be over HTTPS/TLS. Sensitive data like API keys and tokens are handled securely.
+*   **Agent Authentication:** Agents authenticate with the coordinator using JWTs. CI plugins use API keys.
+*   **Controlled Code Access:** Agents only fetch the necessary job context (e.g., source code for a specific commit) required for the build. They do not have standing access to entire repositories.
+*   **Trust Model:**
+    *   The primary trust is within your team. Agents are run on machines of trusted team members.
+    *   The BuildHive coordinator orchestrates but does not store your source code long-term (job packages are temporary).
+    *   Future enhancements will include more granular permissions and audit logs.
+*   **OpenSaaS Base:** Leverages the security considerations of the underlying Wasp framework and OpenSaaS template for the web platform aspects.
+
+We are committed to continuously improving the security posture of BuildHive.
+
+---
+
+## 💰 Pricing & Signup
+
+BuildHive is currently in active development.
+
+*   **For Self-Hosting / Early Adopters:** The core components will be open-source (license TBD), allowing teams to self-host the coordinator and use agents internally.
+*   **Future Cloud Offering:** We plan to offer a managed cloud version of the BuildHive coordinator with tiered pricing, leveraging the [Stripe integration capabilities of OpenSaaS](https://opensaas.sh/docs/guides/payments-integration/).
+
+Stay tuned for updates on availability and pricing plans! You can register your interest or get involved by [watching our GitHub repository](https://github.com/your-org/buildhive) or joining our (future) community channels.
+
+---
+
+## 🔗 Links & Community
+
+*   **Developer README:** [DEV-README.md](DEV-README.md) (For contributors and technical details)
+*   **Issue Tracker:** [GitHub Issues](https://github.com/your-org/buildhive/issues)
+*   **Contributing Guidelines:** (Coming Soon - Will be linked in `DEV-README.md`)
+*   **Changelog:** (Coming Soon)
+*   **OpenSaaS Documentation:** [docs.opensaas.sh](https://docs.opensaas.sh/)
+*   **Wasp Framework:** [wasp.sh](https://wasp.sh/)
+
+---
+
+## 🛡️ Badges (Placeholders)
+
+[![GitHub Stars](https://img.shields.io/github/stars/your-org/buildhive?style=social)](https://github.com/your-org/buildhive/stargazers)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/your-org/buildhive/ci.yml?branch=main)](https://github.com/your-org/buildhive/actions)
+[![License](https://img.shields.io/badge/License-TBD-blue.svg)](LICENSE.md)
 
 ---
 
