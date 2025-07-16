@@ -1,4 +1,4 @@
-app OpenSaaS {
+app BuildHive {
   wasp: {
     version: "^0.17.0"
   },
