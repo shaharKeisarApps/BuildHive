@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+      - dev
+      - 2025-07-16-clean-template
   pull_request:
     branches:
       - main
+      - dev
+      - 2025-07-16-clean-template
 
 env:
   WASP_TELEMETRY_DISABLE: 1
